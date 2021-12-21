@@ -1,0 +1,24 @@
+{
+  "name": "user-management",
+  "version": "1.0.0",
+  "description": "Microservice User Management",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "devStart": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "author": "Ansh Walia <anshwalia@outlook.com>",
+  "license": "GNU GENERAL PUBLIC LICENSE v3.0",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.2.2",
+    "morgan": "^1.10.0",
+    "validator": "^13.7.0"
+  }
+}
