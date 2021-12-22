@@ -9,15 +9,15 @@ const makeUsersRouter = async ({ makeUsersController, databaseClient, SECRETS })
 
         // Users Controller
         const UsersController = await makeUsersController(databaseClient,SECRETS);
-
-        // GET
-        UsersRouter.get('/',UsersController.GET);
         
         // POST - REGISTER
         UsersRouter.post('/register',UsersController.REGISTER);
+
+        // GET - LOGIN
+        UsersRouter.get('/login',UsersController.LOGIN_GET);
         
         // POST - LOGIN
-        UsersRouter.post('/login',UsersController.LOGIN);
+        UsersRouter.post('/login',UsersController.LOGIN_POST);
 
         // INVALID
         UsersRouter.use('*',(req,res) => { res.status(404).json({ ok: false, message: "Invalid Endpoint!"}); })

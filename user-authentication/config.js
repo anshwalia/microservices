@@ -5,10 +5,10 @@ import path from "path";
 import makeApp from "./src/app.js";
 
 // Router Makers
-import makeUsersRouter from "./src/routes/users.js";
+import makeUsersRouter from "./src/routers/users.router.js";
 
 // Controller Makers
-import makeUsersController from "./src/controllers/users.js";
+import makeUsersController from "./src/controllers/users.controller.js";
 
 // Database Client Maker
 import makeDatabaseClient from "./src/database/client.js";

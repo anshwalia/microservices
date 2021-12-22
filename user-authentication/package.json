@@ -1,7 +1,7 @@
 {
-  "name": "user-management",
+  "name": "user-authentication",
   "version": "1.0.0",
-  "description": "Microservice User Management",
+  "description": "Microservice for user authentication",
   "main": "server.js",
   "type": "module",
   "scripts": {
@@ -17,6 +17,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
+    "logging": "^3.3.0",
     "mongodb": "^4.2.2",
     "morgan": "^1.10.0",
     "validator": "^13.7.0"
