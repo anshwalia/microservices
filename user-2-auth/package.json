@@ -1,7 +1,7 @@
 {
-  "name": "user-authentication",
+  "name": "user-2-auth",
   "version": "1.0.0",
-  "description": "Microservice for user authentication",
+  "description": "Microservice for user authentication and authorization",
   "main": "server.js",
   "type": "module",
   "scripts": {

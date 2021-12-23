@@ -1,6 +1,3 @@
-// Node Modules
-import path from "path";
-
 // Express App Maker
 import makeApp from "./src/app.js";
 
