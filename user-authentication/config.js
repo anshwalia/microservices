@@ -21,12 +21,3 @@ const controllerMakers = { makeUsersController };
 
 // Dependencies
 export const Dependencies = { makeApp, routerMakers, controllerMakers, makeDatabaseClient };
-
-// User File Path
-export const getUsersFilePath = async () => {
-    try{
-        const usersFilePath = path.resolve(__dirname,'./src/data/users.json');
-        return usersFilePath;
-    }
-    catch(error){ throw error; }
-}
