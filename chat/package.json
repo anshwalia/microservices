@@ -1,0 +1,24 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "Microservice for user chat",
+  "main": "server.js",
+  "scripts": {
+    "dev-start": "nodemon ./dist/server.js",
+    "start": "node ./dist/server.js"
+  },
+  "author": "Ansh Walia <anshwalia@outlook.com>",
+  "license": "GNU GENERAL PUBLIC LICENSE v3.0",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "mongodb": "^4.2.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/morgan": "^1.9.3"
+  }
+}
