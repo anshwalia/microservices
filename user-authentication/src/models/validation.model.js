@@ -3,7 +3,7 @@
 // Node Module
 import validator from "validator";
 
-const ValidationModel = {
+const Validation = {
 
     // Validate New User Info
     validate_user: async function({ first_name, last_name, email, password }){
@@ -71,4 +71,4 @@ const ValidationModel = {
     }
 }
 
-export default ValidationModel;
+export default Validation;
