@@ -1,20 +1,19 @@
 'use strict';
 
+// Node Modules
+import dotenv from "dotenv";
+dotenv.config();
+
 // JSON Web Tokens Library
 import jsonwebtoken from "jsonwebtoken";
 
-const TokensModel = {
+const Token = {
 
     enableLogs: null,
 
-    ACCESS_TOKEN_SECRET: null,
-    REFRESH_TOKEN_SECRET: null,
-
-    init: async function(SECRETS,enableLogs){
+    init: async function(enableLogs){
         try{
             this.enableLogs = enableLogs;
-            this.ACCESS_TOKEN_SECRET = SECRETS.ACCESS;
-            this.REFRESH_TOKEN_SECRET = SECRETS.REFRESH;
             if(this.enableLogs){ 
                 console.log("[TOKENS MODEL INIT SUCCESS]"); 
             }
@@ -25,9 +24,9 @@ const TokensModel = {
     // Method To Create Access JWT Token
     createAccessToken: async function(user_email=""){
         try{
-            const payload = { email: user_email, time_stamp: Date.now() }
+            const payload = { email: user_email }
 
-            const access_token = jsonwebtoken.sign(payload,this.ACCESS_TOKEN_SECRET,{ expiresIn: "15m" });
+            const access_token = jsonwebtoken.sign(payload,process.env.ACCESS_TOKEN_SECRET,{ expiresIn: "15m" });
 
             return access_token;
         }
@@ -37,9 +36,9 @@ const TokensModel = {
     // Method To Create Refresh JWT Token
     createRefreshToken: async function(user_email=""){
         try{
-            const payload = { email: user_email, time_stamp: Date.now() }
+            const payload = { email: user_email }
 
-            const refresh_token = jsonwebtoken.sign(payload,this.REFRESH_TOKEN_SECRET,{ expiresIn: "7d" });
+            const refresh_token = jsonwebtoken.sign(payload,process.env.REFRESH_TOKEN_SECRET,{ expiresIn: "7d" });
 
             return refresh_token;
         }
@@ -47,4 +46,4 @@ const TokensModel = {
     },
 }
 
-export default TokensModel;
+export default Token;

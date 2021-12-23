@@ -13,14 +13,9 @@ const startServer = async ({ makeApp, routerMakers, controllerMakers, makeDataba
 
         const DatabaseURL = process.env.DB_URL;
 
-        const SECRETS = {
-            ACCESS: process.env.ACCESS_TOKEN_SECRET,
-            REFRESH: process.env.REFRESH_TOKEN_SECRET
-        }
-
         const databaseClient = await makeDatabaseClient(DatabaseURL);
 
-        const app = await makeApp({ routerMakers, controllerMakers, databaseClient, SECRETS });
+        const app = await makeApp({ routerMakers, controllerMakers, databaseClient });
 
         app.listen(PORT,() => { console.log(`SERVER STARTED @ PORT ${PORT}`); });
     }

@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 
 import { requireAuth } from "./middleware/auth.middleware.js";
 
-const makeApp = async ({ routerMakers, controllerMakers, databaseClient, SECRETS }) => {
+const makeApp = async ({ routerMakers, controllerMakers, databaseClient }) => {
     try{
         // Express App
         const app = express();
@@ -27,7 +27,7 @@ const makeApp = async ({ routerMakers, controllerMakers, databaseClient, SECRETS
         // Controller Makers
         const { makeUsersController } = controllerMakers;
  
-        const UsersRouter = await makeUsersRouter({ makeUsersController, databaseClient, SECRETS });
+        const UsersRouter = await makeUsersRouter({ makeUsersController, databaseClient });
  
         // Routes
         app.use('/users',UsersRouter);

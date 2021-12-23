@@ -3,12 +3,12 @@
 // Node Modules
 import { Router } from "express";
 
-const makeUsersRouter = async ({ makeUsersController, databaseClient, SECRETS }) => {
+const makeUsersRouter = async ({ makeUsersController, databaseClient }) => {
     try{
         const UsersRouter = Router();
 
         // Users Controller
-        const UsersController = await makeUsersController(databaseClient,SECRETS);
+        const UsersController = await makeUsersController(databaseClient);
         
         // POST - REGISTER
         UsersRouter.post('/register',UsersController.REGISTER);
@@ -20,7 +20,7 @@ const makeUsersRouter = async ({ makeUsersController, databaseClient, SECRETS })
         UsersRouter.post('/login',UsersController.LOGIN_POST);
 
         // INVALID
-        UsersRouter.use('*',(req,res) => { res.status(404).json({ ok: false, message: "Invalid Endpoint!"}); })
+        UsersRouter.use('*',(req,res) => { res.status(404).json({ ok: false, message: "Invalid Endpoint!"}); });
 
         return UsersRouter;
     }

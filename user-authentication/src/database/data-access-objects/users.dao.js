@@ -1,6 +1,6 @@
 'use strict';
 
-const UsersDAO = {
+const Users = {
 
     database: {
         name: 'test',
@@ -93,4 +93,4 @@ const UsersDAO = {
 
 }
 
-export default UsersDAO;
+export default Users;

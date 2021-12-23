@@ -6,18 +6,19 @@ import UsersDAO from "../database/data-access-objects/users.dao.js";
 // Models
 import ValidationModel from "../models/validation.model.js";
 import UserModel from "../models/user.model.js";
-import TokensModel from "../models/token.model.js";
+import TokenModel from "../models/token.model.js";
+import CryptoModel from "../models/crypto.model.js";
 
 const UsersController = {
 
     enableLogs: false,
     
-    init: async function(databaseClient,SECRETS,enableLogs=false){
+    init: async function(databaseClient,enableLogs=false){
         try{
             this.enableLogs = enableLogs;
             await UsersDAO.init(databaseClient,enableLogs);
             await UserModel.init(enableLogs);
-            await TokensModel.init(SECRETS,enableLogs);
+            await TokenModel.init(enableLogs);
             // Logs
             if(this.enableLogs){ console.log("[USERS CONTROLLER INIT SUCCESS]"); }
         }
@@ -28,15 +29,17 @@ const UsersController = {
         try{
             const { first_name, last_name, email, password } = req.body;
 
-            const validationResult = await ValidationModel.validate_user({ first_name, last_name, email, password });
+            const result = await ValidationModel.validate_user({ first_name, last_name, email, password });
 
-            if(validationResult.ok){
+            if(result.ok){
                 
                 const existingUser = await UsersDAO.getUserByEmail(email);
 
                 if(existingUser === null){
 
-                    const user = await UserModel.createNewUser({ first_name, last_name, email, password });
+                    const hashedPassword = await CryptoModel.hashPassword(password);
+
+                    const user = await UserModel.createNewUser({ first_name, last_name, email, hashedPassword });
 
                     await UsersDAO.addUser(user);
                     
@@ -131,12 +134,12 @@ const UsersController = {
 
             if(user !== null){
 
-                const passwordMatch = await UserModel.matchPassword(password,user.password);
+                const result = await CryptoModel.comparePassword(password,user.password);
                 
-                if(passwordMatch){
+                if(result){
 
-                    const access_token = await TokensModel.createAccessToken(user.email);
-                    const refresh_token = await TokensModel.createRefreshToken(user.email);
+                    const access_token = await TokenModel.createAccessToken(user.email);
+                    const refresh_token = await TokenModel.createRefreshToken(user.email);
 
                     // await UsersDAO.updateRefreshToken
                     await UsersDAO.updateAccessToken(user.email,access_token);
@@ -187,9 +190,9 @@ const UsersController = {
 }
 
 // Function To Make Users Controller
-const makeUsersController = async (databaseClient,SECRETS) => {
+const makeUsersController = async (databaseClient) => {
     try{
-        await UsersController.init(databaseClient,SECRETS,true);
+        await UsersController.init(databaseClient,true);
         return UsersController;
     }
     catch(error){ throw error; }
