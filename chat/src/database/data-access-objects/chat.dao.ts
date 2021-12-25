@@ -3,15 +3,11 @@
 // Node Modules
 import { MongoClient } from "mongodb";
 
-class Chat{
+// Chat Data Access Object
+export class Chat{
 
-    #database: {
-        connection: any,
-        collection: any
-    } = {
-        connection: null,
-        collection: null
-    }
+    private connection:any;
+    private collection:any;
 
     constructor(){
         try{
@@ -22,15 +18,31 @@ class Chat{
 
     async init(databaseClient:MongoClient){
         try{
-            this.#database.connection = await databaseClient.connect();
+            this.connection = await databaseClient.connect();
 
-            this.#database.collection = await this.#database.connection.db('test').collection('chat');
+            this.collection = await this.connection.db('test').collection('chat');
 
             console.log("[ CHAT DAO INIT COMPLETE ]");
         }
         catch(error){ throw error; }
     }
 
+    async addChat(chatObject:object){
+        try{
+            const result = await this.collection.insertOne(chatObject);
+            console.log(result);
+        }
+        catch(error){ throw error; }
+    }
+
 }
 
-export default Chat;
+// Function To Make Chat Data Access Object
+export async function makeChatDAO(databaseClient:MongoClient) {
+    try{
+        const ChatDAO = new Chat();
+        await ChatDAO.init(databaseClient);
+        return ChatDAO;
+    }
+    catch(error){ throw error; }
+}

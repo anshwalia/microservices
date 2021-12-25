@@ -13,8 +13,11 @@ async function makeChatRouter(databaseClient:MongoClient,makeChatController:Func
 
         // Routes
 
-        // GET - CHAT
+        // GET - /CHAT
         ChatRouter.get('/',ChatController.GET);
+
+        // POST - /CHAT/NEW
+        ChatRouter.post('/new',ChatController.NEW);
 
         return ChatRouter;
     }
